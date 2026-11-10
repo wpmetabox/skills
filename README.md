@@ -9,14 +9,14 @@ Without it, AI tools often mix Meta Box with ACF, invent extension names, or rea
 Claude Code:
 
 ```
-/plugin marketplace add wpmetabox/meta-box-skills
+/plugin marketplace add wpmetabox/skills
 /plugin install meta-box@meta-box
 ```
 
 Other agents (Cursor, Codex, Copilot, and more):
 
 ```
-npx skills add wpmetabox/meta-box-skills
+npx skills add wpmetabox/skills
 ```
 
 Or copy `skills/meta-box/SKILL.md` to the skills folder of your agent, for example `.claude/skills/meta-box/SKILL.md`.
