@@ -5,9 +5,51 @@ description: Mistakes to avoid when you write code for Meta Box, the WordPress c
 
 # Meta Box
 
-AI tools make these mistakes in Meta Box code. Code examples are at https://docs.metabox.io/coding-with-ai/. The full docs are at https://docs.metabox.io.
+Rules for Meta Box code, and the mistakes that AI tools make most often. Code examples are at https://docs.metabox.io/coding-with-ai/. The full docs are at https://docs.metabox.io.
 
-## Mistakes
+## How to write Meta Box code
+
+### Create fields
+
+- Use the `rwmb_meta_boxes` filter, a JSON file with the schema https://schemas.metabox.io/field-group.json, or MB Builder (**Get PHP Code** gives the PHP code).
+- Use a prefix for field IDs, for example `event_date`.
+- Use only the field types and settings in the docs.
+
+### Get field values
+
+- `rwmb_meta()` gets a value. `rwmb_the_value()` shows a value.
+- For a term, user, settings page, or custom model, set `object_type`.
+- To show fields without PHP, use MB Views, Block Bindings, or a page builder.
+
+### Select the correct extension
+
+| Task | Extension |
+|---|---|
+| Repeat a set of fields | Meta Box Group with `'clone' => true` |
+| Connect posts, terms, or users | MB Relationships |
+| Save fields in a custom table | MB Custom Table |
+| Save data that is not a post (orders, logs) | Custom models in MB Custom Table |
+| Make an options page | MB Settings Page |
+| Make a registration, login, or profile form | MB User Profile |
+| Make a form to submit posts | MB Frontend Submission |
+| Make a Gutenberg block with fields | MB Blocks |
+| Show or hide fields with conditions | Meta Box Conditional Logic |
+| Make templates without PHP | MB Views |
+
+### Write safe code
+
+- Escape output with `esc_html()`, `esc_url()`, or `esc_attr()`.
+- Use `$wpdb->prepare()` for SQL.
+- A filter callback must return the value.
+- Register custom models on `init` with priority 10.
+
+### If you are not sure
+
+- Read the docs (see the table at the end).
+- If the project has the plugin, read the source in `wp-content/plugins/meta-box/`.
+- Do not use a function, hook, or parameter that is not in the docs or in the source.
+
+## Common mistakes
 
 | Mistake | Correct |
 |---|---|
