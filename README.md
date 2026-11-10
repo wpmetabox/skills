@@ -1,6 +1,6 @@
 # Meta Box skills
 
-An [agent skill](https://agentskills.io) for [Meta Box](https://metabox.io). It lists the mistakes that AI tools make in Meta Box code, and links to the [Meta Box docs](https://docs.metabox.io).
+An [agent skill](https://agentskills.io) for [Meta Box](https://metabox.io). It tells AI tools how to write correct Meta Box code, lists the mistakes that AI tools make most often, and links to the [Meta Box docs](https://docs.metabox.io).
 
 ## Install
 
