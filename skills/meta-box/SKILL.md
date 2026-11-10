@@ -1,17 +1,19 @@
 ---
 name: meta-box
-description: Mistakes to avoid when you write code for Meta Box, the WordPress custom fields plugin, and its extensions (MB Custom Table, MB Relationships, MB Settings Page, Meta Box Group, MB User Profile, MB Views). Use when the project uses Meta Box, when the code calls rwmb_meta(), rwmb_meta_boxes, mb_register_model() or MB_Relationships_API, or when the user asks for custom fields, relationships, custom tables, custom models, user forms, or views with Meta Box.
+description: Rules to write correct code for Meta Box, the WordPress custom fields plugin, and its extensions (MB Custom Table, MB Relationships, MB Settings Page, Meta Box Group, MB User Profile, MB Views). Also lists the mistakes that AI tools make most often, with the correct code. Use when the project uses Meta Box, when the code calls rwmb_meta(), rwmb_meta_boxes, mb_register_model() or MB_Relationships_API, or when the user asks for custom fields, relationships, custom tables, custom models, user forms, or views with Meta Box.
 ---
 
 # Meta Box
 
-Rules for Meta Box code, and the mistakes that AI tools make most often. Code examples are at https://docs.metabox.io/coding-with-ai/. The full docs are at https://docs.metabox.io.
+This skill gives the rules for Meta Box code. It also lists the mistakes that AI tools make most often. Code examples are at https://docs.metabox.io/coding-with-ai/. The full docs are at https://docs.metabox.io.
 
 ## How to write Meta Box code
 
 ### Create fields
 
-- Use the `rwmb_meta_boxes` filter, a JSON file with the schema https://schemas.metabox.io/field-group.json, or MB Builder (**Get PHP Code** gives the PHP code).
+- Register the field group with the `rwmb_meta_boxes` filter.
+- Or save the field group as a JSON file. Use the schema https://schemas.metabox.io/field-group.json to check the settings.
+- Or create the field group in MB Builder. To get the PHP code, click **Get PHP Code**.
 - Use a prefix for field IDs, for example `event_date`.
 - Use only the field types and settings in the docs.
 
@@ -40,8 +42,6 @@ Rules for Meta Box code, and the mistakes that AI tools make most often. Code ex
 
 - Escape output with `esc_html()`, `esc_url()`, or `esc_attr()`.
 - Use `$wpdb->prepare()` for SQL.
-- A filter callback must return the value.
-- Register custom models on `init` with priority 10.
 
 ### If you are not sure
 
@@ -53,7 +53,6 @@ Rules for Meta Box code, and the mistakes that AI tools make most often. Code ex
 
 | Mistake | Correct |
 |---|---|
-| Functions that are not in the docs | Use only functions, hooks, and parameters from the docs or from the plugin source (`wp-content/plugins/meta-box/`). |
 | ACF functions: `get_field()`, `the_field()`, `have_rows()`, `get_sub_field()` | `rwmb_meta()` gets a value. `rwmb_the_value()` shows a value. |
 | `get_post_meta()` | `rwmb_meta()`. Fields with multiple values save one row for each value. Image fields save IDs. Custom table fields are not in post meta. |
 | A sub-field ID as a meta key: `rwmb_meta( 'city' )` | Get the group, then the sub-field: `( rwmb_meta( 'address' ) ?: [] )['city'] ?? ''`. A cloneable group gives a list of groups. |
@@ -61,12 +60,12 @@ Rules for Meta Box code, and the mistakes that AI tools make most often. Code ex
 | A relationship as a field | `MB_Relationships_API::get_connected( [ 'id' => $relationship_id, 'from' => $id ] )`, `::add( $from, $to, $id )`, `::delete( $from, $to, $id )`, `::has( $from, $to, $id )`. |
 | "Models extension" | Custom models are a feature of MB Custom Table. |
 | `WP_Query` or `get_posts()` for custom models | One row: `\MetaBox\CustomTable\API::get( $id, $table )`. Many rows: `$wpdb->prepare()` on the model table. |
-| `mb_register_model()` on `init` with priority 20 or higher | Use priority 10 (the default). |
+| `mb_register_model()` on `init` with priority 20 or higher | Use priority 10 (the default). With priority 20 or higher, the model fields do not work. |
 | "Meta Box Repeater" | Meta Box Group with `'clone' => true`. |
 | "Meta Box Options Page" | MB Settings Page. |
 | `apply_filters()` or `do_action()` copied from the docs | These are signatures. Use `add_filter()` or `add_action()`. Set the number of parameters if there is more than 1. A filter callback must return the value. |
 | No `return $meta_boxes` in the `rwmb_meta_boxes` callback | Return `$meta_boxes`. If not, all field groups disappear. |
-| "MB Views does not work in the Query Loop block, use ACF" | In MB Views 1.15.0+, `{{ post }}` is the current post of the loop. Add the View block or `[mbv name="view-name"]` in the Post Template block. |
+| "MB Views does not work in the Query Loop block, use ACF" | In MB Views 1.15.0 and later, `{{ post }}` is the current post of the loop. Add the View block or `[mbv name="view-name"]` in the Post Template block. |
 
 ## Docs
 
