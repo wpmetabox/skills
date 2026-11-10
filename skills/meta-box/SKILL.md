@@ -56,6 +56,7 @@ This skill gives the rules for Meta Box code. It also lists the mistakes that AI
 | ACF functions: `get_field()`, `the_field()`, `have_rows()`, `get_sub_field()` | `rwmb_meta()` gets a value. `rwmb_the_value()` shows a value. |
 | `get_post_meta()` | `rwmb_meta()`. Fields with multiple values save one row for each value. Image fields save IDs. Custom table fields are not in post meta. |
 | A sub-field ID as a meta key: `rwmb_meta( 'city' )` | Get the group, then the sub-field: `( rwmb_meta( 'address' ) ?: [] )['city'] ?? ''`. A cloneable group gives a list of groups. |
+| An image or file sub-field in a group used as an array: `$group['photo']['url']` | Sub-fields give raw values. Image and file sub-fields give attachment IDs: `wp_get_attachment_image( $group['photo'], 'medium' )`. |
 | No `object_type` for a term, user, settings page, or model | `rwmb_meta( $id, [ 'object_type' => 'term' ], $term_id )`. Use `'user'`, `'setting'` (3rd parameter is the option name), or `'model'` with `'type' => $model_name`. For a custom table, set `'storage_type' => 'custom_table', 'table' => $table`. |
 | A relationship as a field | `MB_Relationships_API::get_connected( [ 'id' => $relationship_id, 'from' => $id ] )`, `::add( $from, $to, $id )`, `::delete( $from, $to, $id )`, `::has( $from, $to, $id )`. |
 | "Models extension" | Custom models are a feature of MB Custom Table. |
@@ -66,6 +67,7 @@ This skill gives the rules for Meta Box code. It also lists the mistakes that AI
 | `apply_filters()` or `do_action()` copied from the docs | These are signatures. Use `add_filter()` or `add_action()`. Set the number of parameters if there is more than 1. A filter callback must return the value. |
 | No `return $meta_boxes` in the `rwmb_meta_boxes` callback | Return `$meta_boxes`. If not, all field groups disappear. |
 | "MB Views does not work in the Query Loop block, use ACF" | In MB Views 1.15.0 and later, `{{ post }}` is the current post of the loop. Add the View block or `[mbv name="view-name"]` in the Post Template block. |
+| `[mb_views id="123"]` | The view shortcode is `[mbv id="123"]` or `[mbv name="view-name"]`. |
 
 ## Docs
 
