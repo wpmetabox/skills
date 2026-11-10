@@ -1,0 +1,9 @@
+{
+  "name": "meta-box",
+  "description": "Write correct Meta Box code: custom fields, groups, relationships, custom tables, custom models, user profile hooks, and MB Views.",
+  "version": "1.0.0",
+  "author": { "name": "Meta Box", "url": "https://metabox.io" },
+  "homepage": "https://docs.metabox.io/coding-with-ai/",
+  "repository": "https://github.com/wpmetabox/meta-box-skills",
+  "license": "GPL-2.0-or-later"
+}

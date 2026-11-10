@@ -1,0 +1,11 @@
+{
+  "name": "meta-box",
+  "owner": { "name": "Meta Box", "url": "https://metabox.io" },
+  "plugins": [
+    {
+      "name": "meta-box",
+      "source": "./",
+      "description": "Write correct Meta Box code for WordPress."
+    }
+  ]
+}
