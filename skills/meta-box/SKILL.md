@@ -65,6 +65,7 @@ This skill gives the rules for Meta Box code. It also lists the mistakes that AI
 | "Meta Box Repeater" | Meta Box Group with `'clone' => true`. |
 | "Meta Box Options Page" | MB Settings Page. |
 | `apply_filters()` or `do_action()` copied from the docs | These are signatures. Use `add_filter()` or `add_action()`. Set the number of parameters if there is more than 1. A filter callback must return the value. |
+| Hooks that do not exist: `meta_box_blocks`, `rwmb_frontend_access` | Blocks are registered with `rwmb_meta_boxes` and `'type' => 'block'`. Frontend Submission lets the post author and users with `edit_post` edit a post; give other users the capability with `map_meta_cap`. Use only hooks that are in the docs or the source. |
 | No `return $meta_boxes` in the `rwmb_meta_boxes` callback | Return `$meta_boxes`. If not, all field groups disappear. |
 | "MB Views does not work in the Query Loop block, use ACF" | In MB Views 1.15.0 and later, `{{ post }}` is the current post of the loop. Add the View block or `[mbv name="view-name"]` in the Post Template block. |
 | `[mb_views id="123"]` | The view shortcode is `[mbv id="123"]` or `[mbv name="view-name"]`. |
@@ -86,4 +87,5 @@ This skill gives the rules for Meta Box code. It also lists the mistakes that AI
 | Views, View block, Query Loop | https://docs.metabox.io/extensions/mb-views/ |
 | Blocks | https://docs.metabox.io/extensions/mb-blocks/ |
 | Actions, filters | https://docs.metabox.io/category/actions/, https://docs.metabox.io/category/filters/ |
+| JavaScript events (`mb_ready`, `clone`, `clone_completed`…) | https://docs.metabox.io/javascript-api/ |
 | JSON schema | https://schemas.metabox.io/field-group.json |
